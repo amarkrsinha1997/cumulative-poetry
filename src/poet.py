@@ -1,7 +1,7 @@
 import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument('--reveal-for-day', nargs=1, help="", dest="revealDay", type=int)
-parser.add_argument('--recite', action="store_true", help="")
+parser.add_argument('--recite', action="store_true", help="", dest="shouldRecite")
 
 
 class Poetry:
@@ -39,24 +39,28 @@ class Poetry:
 
         return talesRevealed
 
+    def checkArgs(self, args):
+        shouldRecite = args['shouldRecite']
+        revealDayArg = args['revealDay']
+
+        if not shouldRecite and not revealDayArg:
+            parser.print_help()
+            print("\n")
+            raise Exception("Need either of the args.")
+
 
 if __name__ == "__main__":
     poetry = Poetry()
     args = parser.parse_args()
     args = vars(args)
+
+    poetry.checkArgs(args)
+
+    shouldRecite = args['shouldRecite']
     
-    shouldRecite = args['recite']
-    revealDayArg = args['revealDay']
-
-
-    if not shouldRecite and not revealDayArg:
-        parser.print_help()
-        print("\n")
-        raise Exception("Need either of the args.")
-
     if shouldRecite:
-        pass
+        print(shouldRecite)
     else:
-        revealDay = revealDayArg[0]
+        revealDay = args['revealDay'][0]
         tale = poetry.revealForDay(revealDay)
         print(tale)
