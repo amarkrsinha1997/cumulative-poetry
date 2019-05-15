@@ -22,5 +22,25 @@ class PoetryTest(unittest.TestCase):
 
         self.assertEqual(actualTale, expectedTale)        
 
+    def test_recite_contains_day(self):
+        poetry = Poetry()
+        tale = poetry.recite()
+
+        actualTaleDay = len(poetry.tales)
+        expectedTaleDay = tale.count("Day")
+        self.assertEqual(actualTaleDay, expectedTaleDay)
+        
+
+    def test_recite_reveal_everyday_tale(self):
+        poetry = Poetry()
+        tale = poetry.recite()
+
+        actualTaleDay = len(poetry.tales)
+        expectedTaleDay = tale.count("Day")
+        
+        for day in range(1, actualTaleDay + 1):
+            dayString = "Day {0} -".format(day)
+            self.assertNotEqual(tale.index(dayString), -1)
+
 if __name__ == "__main__":
     unittest.main()
