@@ -59,6 +59,8 @@ class Poetry:
             print("\n")
             raise Exception("Need either of the args.")
 
+        if shouldRecite and revealDayArg:
+            print("Either one of the args should be given not both.")
 
 if __name__ == "__main__":
     poetry = Poetry()
