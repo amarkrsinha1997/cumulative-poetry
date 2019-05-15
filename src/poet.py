@@ -40,11 +40,15 @@ class Poetry:
 
     def recite(self):
         totalDays = len(self.tales) + 1
-
+        revealTales = ""
+    
         for day in range(1, totalDays):
             tale = self.revealForDay(day)
-            print("Day {0} -".format(day))
-            print(tale)
+            revealTales += "Day {0} -\n".format(day)
+            revealTales += tale
+            revealTales += "\n"
+
+        return revealTales
 
     def checkArgs(self, args):
         shouldRecite = args['shouldRecite']
@@ -66,7 +70,8 @@ if __name__ == "__main__":
     shouldRecite = args['shouldRecite']
     
     if shouldRecite:
-        poetry.recite()
+        tale = poetry.recite()
+        print(tale)
     else:
         revealDay = args['revealDay'][0]
         tale = poetry.revealForDay(revealDay)
