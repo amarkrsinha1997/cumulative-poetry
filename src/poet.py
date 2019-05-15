@@ -31,13 +31,20 @@ class Poetry:
             return "Invalid Day"
 
         talesToBeRevealed = self.tales[:revealDay]
-
         talesToBeRevealed.reverse()
 
         for tale in talesToBeRevealed:
             talesRevealed += "{0}\n\t".format(tale)
 
         return talesRevealed
+
+    def recite(self):
+        totalDays = len(self.tales) + 1
+
+        for day in range(1, totalDays):
+            tale = self.revealForDay(day)
+            print("Day {0} -".format(day))
+            print(tale)
 
     def checkArgs(self, args):
         shouldRecite = args['shouldRecite']
@@ -59,7 +66,7 @@ if __name__ == "__main__":
     shouldRecite = args['shouldRecite']
     
     if shouldRecite:
-        print(shouldRecite)
+        poetry.recite()
     else:
         revealDay = args['revealDay'][0]
         tale = poetry.revealForDay(revealDay)
