@@ -1,5 +1,5 @@
 import unittest
-from poet import Poetry
+from poetry import Poetry
 
 
 class PoetryTest(unittest.TestCase):
