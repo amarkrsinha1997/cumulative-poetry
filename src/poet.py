@@ -3,7 +3,10 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--reveal-for-day', nargs=1, help="", dest="forWhichDay", type=int)
 parser.add_argument('--recite', action="store_true", help="", dest="shouldRecite")
 
-
+beginingSentence = "This is"
+inValidDay = "Invalid Day"
+class InValidDay(Exception):
+    pass
 class Poetry:
     tales = [
         'the house that Jack built.',
@@ -19,29 +22,28 @@ class Poetry:
         'the farmer sowing his corn that kept',
         'the horse and the hound and the horn that belonged to'
     ]
-
+    
     def __init__(self):
         pass
 
     def revealForDay(self, forWhichDay=1):
         # initiated message
-        talesRevealed = "This is "
+        talesRevealed = beginingSentence
 
         if forWhichDay > len(self.tales):
-            return "Invalid Day"
+            raise InValidDay(inValidDay)
 
         talesToBeRevealed = self.tales[:forWhichDay]
         talesToBeRevealed.reverse()
-
-        for tale in talesToBeRevealed:
-            talesRevealed += "{0}\n\t".format(tale)
-
+        
+        talesRevealed += "\n\t".join(talesToBeRevealed)
+        
         return talesRevealed
 
     def recite(self):
         totalDays = len(self.tales) + 1
         revealTales = ""
-    
+        
         for day in range(1, totalDays):
             tale = self.revealForDay(day)
             revealTales += "Day {0} -\n".format(day)
