@@ -1,6 +1,6 @@
 import argparse
 parser = argparse.ArgumentParser()
-parser.add_argument('--reveal-for-day', nargs=1, help="", dest="revealDay", type=int)
+parser.add_argument('--reveal-for-day', nargs=1, help="", dest="forWhichDay", type=int)
 parser.add_argument('--recite', action="store_true", help="", dest="shouldRecite")
 
 
@@ -23,14 +23,14 @@ class Poetry:
     def __init__(self):
         pass
 
-    def revealForDay(self, revealDay=1):
+    def revealForDay(self, forWhichDay=1):
         # initiated message
         talesRevealed = "This is "
 
-        if revealDay > len(self.tales):
+        if forWhichDay > len(self.tales):
             return "Invalid Day"
 
-        talesToBeRevealed = self.tales[:revealDay]
+        talesToBeRevealed = self.tales[:forWhichDay]
         talesToBeRevealed.reverse()
 
         for tale in talesToBeRevealed:
@@ -52,14 +52,14 @@ class Poetry:
 
     def checkArgs(self, args):
         shouldRecite = args['shouldRecite']
-        revealDayArg = args['revealDay']
+        forWhichDayArg = args['forWhichDay']
 
-        if not shouldRecite and not revealDayArg:
+        if not shouldRecite and not forWhichDayArg:
             parser.print_help()
             print("\n")
             raise Exception("Need either of the args.")
 
-        if shouldRecite and revealDayArg:
+        if shouldRecite and forWhichDayArg:
             print("Either one of the args should be given not both.")
 
 if __name__ == "__main__":
@@ -75,6 +75,6 @@ if __name__ == "__main__":
         tale = poetry.recite()
         print(tale)
     else:
-        revealDay = args['revealDay'][0]
-        tale = poetry.revealForDay(revealDay)
+        forWhichDay = args['forWhichDay'][0]
+        tale = poetry.revealForDay(forWhichDay)
         print(tale)
