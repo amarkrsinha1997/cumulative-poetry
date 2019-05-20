@@ -4,6 +4,7 @@ sysParser = argparse.ArgumentParser()
 
 BEGINING_SENTENCE = "This is "
 IN_VALID_DAY_MESSAGE = "Invalid Day"
+POEM_LIST_EMPTY_MESSAGE = "Poem shall contain some lines."
 
 POEM = [
     'the house that Jack built.',
@@ -53,9 +54,9 @@ class Parser:
 
     def add_args(self):
         self.parser.add_argument('--reveal-for-day', nargs=1, help="",
-                        dest="forWhichDay", type=int)
+                                 dest="forWhichDay", type=int)
         self.parser.add_argument('--recite', action="store_true",
-                        help="", dest="shouldRecite")
+                                 help="", dest="shouldRecite")
 
     def checkArgs(self):
         if self._noArgsCheck(self.args):
@@ -79,12 +80,14 @@ class Parser:
 class Poet:
 
     def __init__(self, poem):
+        if len(poem.getPoem()) == 0:
+            raise ValueError(POEM_LIST_EMPTY_MESSAGE)
         self.poem = poem
 
     def revealForDay(self, forWhichDay=1):
         # initiated message
         talesRevealed = BEGINING_SENTENCE
-        
+
         poem = self.poem.getPoem()
 
         if forWhichDay > len(poem):
@@ -99,15 +102,9 @@ class Poet:
 
     def recite(self):
         totalDays = len(self.poem.getPoem()) + 1
-        revealTales = ""
-    
-        for day in range(1, totalDays):
-            tale = self.revealForDay(day)
-            revealTales += "Day {0} -\n".format(day)
-            revealTales += tale
-            revealTales += "\n"
-
-        return revealTales
+        talesForEachDay = ["Day {0} -\n{1}".format(day, self.revealForDay(day))
+                            for day in range(1, totalDays)]
+        return '\n\n'.join(talesForEachDay)
 
 
 if __name__ == "__main__":
