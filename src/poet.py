@@ -2,8 +2,17 @@ import argparse
 
 
 BEGINING_SENTENCE = "This is "
+
 IN_VALID_DAY_MESSAGE = "Invalid Day"
+
 POEM_LIST_EMPTY_MESSAGE = "Poem shall contain some lines."
+
+REVEAL_FOR_DAY = '--reveal-for-day'
+
+RECITE = '--recite'
+
+RECITE_DEST = 'shouldRecite'
+REVEAL_FOR_DAY_DEST = 'forWhichDay'
 
 POEM = [
     'the house that Jack built.',
@@ -52,10 +61,10 @@ class Parser:
         return vars(args)
 
     def add_args(self):
-        self.parser.add_argument('--reveal-for-day', nargs=1, help="",
-                                 dest="forWhichDay", type=int)
-        self.parser.add_argument('--recite', action="store_true",
-                                 help="", dest="shouldRecite")
+        self.parser.add_argument(REVEAL_FOR_DAY, nargs=1, help="",
+                                 dest=REVEAL_FOR_DAY_DEST, type=int)
+        self.parser.add_argument(RECITE, action="store_true",
+                                 help="", dest=RECITE_DEST)
 
     def checkArgs(self):
         if self._noArgsCheck(self.args):
@@ -70,10 +79,10 @@ class Parser:
         return self.args
 
     def _noArgsCheck(self, args):
-        return not args.get('shouldRecite') and not args.get('forWhichDay')
+        return not args.get(RECITE_DEST) and not args.get(REVEAL_FOR_DAY_DEST)
 
     def _onlyOneArgsCheck(self, args):
-        return args.get('shouldRecite') and args.get('forWhichDay')
+        return args.get(RECITE_DEST) and args.get(REVEAL_FOR_DAY_DEST)
 
 
 class Poet:
@@ -118,12 +127,12 @@ if __name__ == "__main__":
     parser.checkArgs()
     args = parser.getArgs()
 
-    shouldRecite = args['shouldRecite']
+    shouldRecite = args[RECITE_DEST]
 
     if shouldRecite:
         tale = poet.recite()
         print(tale)
     else:
-        forWhichDay = args['forWhichDay'][0]
+        forWhichDay = args[REVEAL_FOR_DAY_DEST][0]
         tale = poet.revealForDay(forWhichDay)
         print(tale)
