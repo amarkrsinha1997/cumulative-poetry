@@ -1,11 +1,8 @@
 import argparse
 sysParser = argparse.ArgumentParser()
-sysParser.add_argument('--reveal-for-day', nargs=1, help="",
-                       dest="forWhichDay", type=int)
-sysParser.add_argument('--recite', action="store_true",
-                       help="", dest="shouldRecite")
 
-BEGINING_SENTENCE = "This is"
+
+BEGINING_SENTENCE = "This is "
 IN_VALID_DAY_MESSAGE = "Invalid Day"
 
 POEM = [
@@ -45,18 +42,32 @@ class Poem:
 
 
 class Parser:
-    def __init__(self, args):
-        self.args = args
+    def __init__(self):
+        self.parser = argparse.ArgumentParser()
+        self.add_args()
+        self.args = self.parse_args()
 
-    def checkArgs(self, args=self.args):
+    def parse_args(self):
+        args = self.parser.parse_args()
+        return vars(args)
 
-        if self._noArgsCheck(args):
+    def add_args(self):
+        self.parser.add_argument('--reveal-for-day', nargs=1, help="",
+                        dest="forWhichDay", type=int)
+        self.parser.add_argument('--recite', action="store_true",
+                        help="", dest="shouldRecite")
+
+    def checkArgs(self):
+        if self._noArgsCheck(self.args):
             sysParser.print_help()
             raise NoArgsException("Need either of the args.")
 
-        if self._onlyOneArgsCheck(args):
+        if self._onlyOneArgsCheck(self.args):
             raise OnlyOneArgsExeception(
                 "Either one of both --recite and --reveal-for-day should be used.")
+
+    def getArgs(self):
+        return self.args
 
     def _noArgsCheck(self, args):
         return not args.get('shouldRecite') and not args.get('forWhichDay')
@@ -73,11 +84,13 @@ class Poet:
     def revealForDay(self, forWhichDay=1):
         # initiated message
         talesRevealed = BEGINING_SENTENCE
+        
+        poem = self.poem.getPoem()
 
-        if forWhichDay > len(self.poem):
+        if forWhichDay > len(poem):
             raise InValidDay(IN_VALID_DAY_MESSAGE)
 
-        talesToBeRevealed = self.poem[:forWhichDay]
+        talesToBeRevealed = poem[:forWhichDay]
         talesToBeRevealed.reverse()
 
         talesRevealed += "\n\t".join(talesToBeRevealed)
@@ -85,9 +98,9 @@ class Poet:
         return talesRevealed
 
     def recite(self):
-        totalDays = len(self.poem) + 1
+        totalDays = len(self.poem.getPoem()) + 1
         revealTales = ""
-
+    
         for day in range(1, totalDays):
             tale = self.revealForDay(day)
             revealTales += "Day {0} -\n".format(day)
@@ -98,12 +111,12 @@ class Poet:
 
 
 if __name__ == "__main__":
-    poet = Poet()
-    args = sysParser.parse_args()
-    args = vars(args)
+    poem = Poem(POEM)
+    poet = Poet(poem)
 
-    parser = Parser(args)
+    parser = Parser()
     parser.checkArgs()
+    args = parser.getArgs()
 
     shouldRecite = args['shouldRecite']
 
