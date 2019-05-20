@@ -1,41 +1,40 @@
 import unittest
-from poetry import Poetry
+from poet import Poet, Poem, POEM
 
-
-class PoetryTest(unittest.TestCase):
+class poetTest(unittest.TestCase):
     def test_reveal_for_day_1(self):
-        poetry = Poetry()
-        actualTale = poetry.revealForDay(1)
-        expectedTale = "This is the house that Jack built.\n\t"
+        poet = Poet(Poem(POEM))
+        actualTale = poet.revealForDay(1)
+        expectedTale = "This is the house that Jack built."
 
         self.assertEqual(actualTale, expectedTale)
 
     def test_reveal_for_day_5(self):
-        poetry = Poetry()
-        actualTale = poetry.revealForDay(5)
+        poet = Poet(Poem(POEM))
+        actualTale = poet.revealForDay(5)
 
         expectedTale = "This is the dog that worried\n\t" \
             + "the cat that killed\n\t" \
             + "the rat that ate\n\t" \
             + "the malth that lay in\n\t" \
-            + "the house that Jack built.\n\t" \
+            + "the house that Jack built." \
 
         self.assertEqual(actualTale, expectedTale)        
 
     def test_recite_contains_day(self):
-        poetry = Poetry()
-        tale = poetry.recite()
+        poet = Poet(Poem(POEM))
+        tale = poet.recite()
 
-        actualTaleDay = len(poetry.tales)
+        actualTaleDay = len(poet.poem.getPoem())
         expectedTaleDay = tale.count("Day")
         self.assertEqual(actualTaleDay, expectedTaleDay)
         
 
     def test_recite_reveal_everyday_tale(self):
-        poetry = Poetry()
-        tale = poetry.recite()
+        poet = Poet(Poem(POEM))
+        tale = poet.recite()
 
-        actualTaleDay = len(poetry.tales)
+        actualTaleDay = len(poet.poem.getPoem())
         expectedTaleDay = tale.count("Day")
         
         for day in range(1, actualTaleDay + 1):

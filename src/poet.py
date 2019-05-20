@@ -100,10 +100,12 @@ class Poet:
 
         return talesRevealed
 
-    def recite(self):
-        totalDays = len(self.poem.getPoem()) + 1
+    def recite(self, poem=[]):
+        if not poem:
+            poem = self.poem.getPoem()
+        totalDays = len(poem) + 1
         talesForEachDay = ["Day {0} -\n{1}".format(day, self.revealForDay(day))
-                            for day in range(1, totalDays)]
+                           for day in range(1, totalDays)]
         return '\n\n'.join(talesForEachDay)
 
 
