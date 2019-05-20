@@ -1,5 +1,4 @@
 import argparse
-sysParser = argparse.ArgumentParser()
 
 
 BEGINING_SENTENCE = "This is "
