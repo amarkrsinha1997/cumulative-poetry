@@ -59,7 +59,7 @@ class Parser:
 
     def checkArgs(self):
         if self._noArgsCheck(self.args):
-            sysParser.print_help()
+            self.parser.print_help()
             raise NoArgsException("Need either of the args.")
 
         if self._onlyOneArgsCheck(self.args):
