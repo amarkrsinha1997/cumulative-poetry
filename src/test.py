@@ -1,5 +1,7 @@
 import unittest
-from poet import Poet, Poem, POEM
+from poet import Poet
+from poem import Poem, POEM
+
 
 class poetTest(unittest.TestCase):
     def test_reveal_for_day_1(self):
