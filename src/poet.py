@@ -8,10 +8,11 @@ from poem import Poem, POEM
 
 class Poet:
 
-    def __init__(self, poem):
+    def __init__(self, poem, shouldEcho=False):
         if len(poem.getPoem()) == 0:
             raise ValueError(constant.POEM_LIST_EMPTY_MESSAGE)
         self.poem = poem
+        self.shouldEcho = shouldEcho
 
     def revealForDay(self, forWhichDay=1):
         # initiated message
@@ -25,6 +26,9 @@ class Poet:
         talesToBeRevealed = poem[:forWhichDay]
         talesToBeRevealed.reverse()
 
+        if self.shouldEcho:
+            talesToBeRevealed = ["{0}\n\t{1}".format(tale, tale) for tale in talesToBeRevealed]
+        
         talesRevealed += "\n\t".join(talesToBeRevealed)
 
         return talesRevealed

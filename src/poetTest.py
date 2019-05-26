@@ -43,5 +43,14 @@ class poetTest(unittest.TestCase): # TODO - class name is supposed to be capital
             dayString = "Day {0} -".format(day)
             self.assertNotEqual(tale.index(dayString), -1) # TODO Complicated way of saying that something should exist. Is there is a simpler method to do that.
 
+
+    def test_should_be_able_to_echo_for_reveal_day_1(self):
+        poet = Poet(Poem(POEM), True)
+
+        actualTale = poet.revealForDay(1)
+        expectedTale = "This is the house that Jack built.\n\tthe house that Jack built."
+
+        self.assertEqual(actualTale, expectedTale)
+
 if __name__ == "__main__":
     unittest.main()
