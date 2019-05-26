@@ -19,6 +19,8 @@ class Parser:
                                  dest=constant.REVEAL_FOR_DAY_DEST, type=int)
         self.parser.add_argument(constant.RECITE, action="store_true",
                                  help="", dest=constant.RECITE_DEST)
+        self.parser.add_argument("--echo", action="store_true",
+                            help="", dest="shouldEcho")
 
     def checkArgs(self):
         if self._noArgsCheck(self.args):
