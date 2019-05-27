@@ -5,33 +5,23 @@ from exceptions import InValidDay
 from parser import Parser
 
 from poem import Poem, POEM
+from echoFormatters import Echo, NoEcho
 
 class Poet:
-
-    def __init__(self, poem, shouldEcho=False):
+    def __init__(self, poem, echo):
         if len(poem.getPoem()) == 0:
             raise ValueError(constant.POEM_LIST_EMPTY_MESSAGE)
         self.poem = poem
-        self.shouldEcho = shouldEcho
+        self.echo = echo
 
     def revealForDay(self, forWhichDay=1):
-        # initiated message
-        talesRevealed = constant.BEGINING_SENTENCE
-
         poem = self.poem.getPoem()
-
-        if forWhichDay > len(poem):
-            raise InValidDay(constant.IN_VALID_DAY_MESSAGE)
 
         talesToBeRevealed = poem[:forWhichDay]
         talesToBeRevealed.reverse()
 
-        if self.shouldEcho:
-            talesToBeRevealed = ["{0}\n\t{1}".format(tale, tale) for tale in talesToBeRevealed]
-        
-        talesRevealed += "\n\t".join(talesToBeRevealed)
+        return constant.BEGINING_SENTENCE + "\n\t".join(self.echo.echo(talesToBeRevealed))
 
-        return talesRevealed
 
     def recite(self, poem=[]):
         if not poem:
@@ -45,13 +35,19 @@ class Poet:
             return '\n\n'.join(poem)
 
 if __name__ == "__main__":
-    poem = Poem(POEM)
-    poet = Poet(poem)
 
     parser = Parser()
     parser.checkArgs()
     args = parser.getArgs()
 
+    poem = Poem(POEM)
+
+    if args['shouldEcho']:
+        echo = Echo()
+    else:
+        echo = NoEcho()
+
+    poet = Poet(poem, echo)
     shouldRecite = args[constant.RECITE_DEST]
 
     if shouldRecite:
