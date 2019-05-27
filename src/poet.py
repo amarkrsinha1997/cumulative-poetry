@@ -2,11 +2,6 @@ import argparse
 import constant
 from exceptions import InValidDay
 
-from parser import Parser
-
-from poem import Poem, POEM
-from echoFormatters import Echo, NoEcho
-
 class Poet:
     def __init__(self, poem, echo):
         if len(poem.getPoem()) == 0:
@@ -33,27 +28,3 @@ class Poet:
         else:
             # poem by others 
             return '\n\n'.join(poem)
-
-if __name__ == "__main__":
-
-    parser = Parser()
-    parser.checkArgs()
-    args = parser.getArgs()
-
-    poem = Poem(POEM)
-
-    if args['shouldEcho']:
-        echo = Echo()
-    else:
-        echo = NoEcho()
-
-    poet = Poet(poem, echo)
-    shouldRecite = args[constant.RECITE_DEST]
-
-    if shouldRecite:
-        tale = poet.recite()
-        print(tale)
-    else:
-        forWhichDay = args[constant.REVEAL_FOR_DAY_DEST][0]
-        tale = poet.revealForDay(forWhichDay)
-        print(tale)
