@@ -1,18 +1,19 @@
 import unittest
 from poet import Poet
 from poem import Poem, POEM
+from echoFormatters import EchoFormatter, NoEchoFormatter
 
 
 class poetTest(unittest.TestCase): # TODO - class name is supposed to be capital 
     def test_reveal_for_day_1(self):
-        poet = Poet(Poem(POEM))
+        poet = Poet(Poem(POEM), NoEchoFormatter())
         actualTale = poet.revealForDay(1)
         expectedTale = "This is the house that Jack built."
 
         self.assertEqual(actualTale, expectedTale)
 
     def test_reveal_for_day_5(self): # TODO - try to see if you can  use multi-line strings
-        poet = Poet(Poem(POEM))
+        poet = Poet(Poem(POEM), NoEchoFormatter())
         actualTale = poet.revealForDay(5)
 
         expectedTale = "This is the dog that worried\n\t" \
@@ -24,7 +25,7 @@ class poetTest(unittest.TestCase): # TODO - class name is supposed to be capital
         self.assertEqual(actualTale, expectedTale)        
 
     def test_recite_contains_day(self): # TODO - hard to understand, what is Tale Day? The initial problem has no such word.
-        poet = Poet(Poem(POEM))
+        poet = Poet(Poem(POEM), NoEchoFormatter())
         tale = poet.recite()
 
         actualTaleDay = len(poet.poem.getPoem()) # TODO - don't invent words
@@ -33,7 +34,7 @@ class poetTest(unittest.TestCase): # TODO - class name is supposed to be capital
         
 
     def test_recite_reveal_everyday_tale(self): # TODO - the test can be more specific, like how many days should exist? What should be the length of the poem? 
-        poet = Poet(Poem(POEM))
+        poet = Poet(Poem(POEM), NoEchoFormatter())
         tale = poet.recite()
 
         actualTaleDay = len(poet.poem.getPoem())
@@ -45,7 +46,7 @@ class poetTest(unittest.TestCase): # TODO - class name is supposed to be capital
 
 
     def test_should_be_able_to_echo_for_reveal_day_1(self):
-        poet = Poet(Poem(POEM), True)
+        poet = Poet(Poem(POEM), EchoFormatter())
 
         actualTale = poet.revealForDay(1)
         expectedTale = "This is the house that Jack built.\n\tthe house that Jack built."
