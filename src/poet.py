@@ -14,7 +14,7 @@ class Poet:
 
         talesToBeRevealed = poem[:forWhichDay]
         talesToBeRevealed.reverse()
-
+        
         return constant.BEGINING_SENTENCE + "\n\t".join(self.echo.echo(talesToBeRevealed))
 
 

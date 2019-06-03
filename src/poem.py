@@ -14,9 +14,10 @@ POEM = [
 ]
 
 class Poem:
-    def __init__(self, poem):
-        self.poem = poem
+    def __init__(self, poem, random):
+        self.poem = random.randomOrdering(poem)
 
     def getPoem(self):
         return self.poem
+
 
