@@ -1,10 +1,20 @@
 BEGINING_SENTENCE = "This is "
 
-RECITE = '--recite'
-RECITE_DEST = 'shouldRecite'
-
 REVEAL_FOR_DAY = '--reveal-for-day'
+RECITE = '--recite'
+ECHO = '--echo'
+RANDOM = '--random'
+SEED = '--seed'
+
+
+
 REVEAL_FOR_DAY_DEST = 'forWhichDay'
+RECITE_DEST = 'shouldRecite'
+ECHO_DEST = 'echo'
+RANDOM_DEST = 'random'
+SEED_DEST = 'seedValue'
+
+
 
 # Error Message
 IN_VALID_DAY_MESSAGE = "Invalid Day"

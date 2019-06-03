@@ -21,14 +21,14 @@ class Parser:
         self.parser.add_argument(constant.RECITE, action="store_true",
                                 help="", dest=constant.RECITE_DEST)
 
-        self.parser.add_argument("--echo", action="store_true",
-                            help="", dest="echo")
+        self.parser.add_argument(constant.ECHO, action="store_true",
+                            help="", dest=constant.ECHO_DEST)
 
-        self.parser.add_argument("--random", action="store_true",
-                            help="", dest="random")
+        self.parser.add_argument(constant.RANDOM, action="store_true",
+                            help="", dest=constant.RANDOM_DEST)
 
-        self.parser.add_argument("--seed", nargs=1, help="",
-                            dest="seedValue", type=int)
+        self.parser.add_argument(constant.SEED, nargs=1, help="",
+                            dest=constant.SEED_DEST, type=int)
 
     def checkArgs(self):
         if self._noArgsCheck(self.args):
