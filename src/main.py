@@ -10,7 +10,7 @@ class Main:
 
     @staticmethod
     def getEcho(args):
-        if args['echo']:
+        if args[constant.ECHO_DEST]:
             echo = EchoFormatter()
         else:
             echo = NoEchoFormatter()
@@ -18,10 +18,10 @@ class Main:
 
     @staticmethod
     def getRandom(args): 
-        if args['random'] and args['seedValue']:
-            seedValue = args['seedValue'][0]
+        if args[constant.RANDOM_DEST] and args[constant.SEED_DEST]:
+            seedValue = args[constant.SEED_DEST][0]
             random = RandomSeedOrdering(seedValue)
-        elif args['random']:
+        elif args[constant.RANDOM_DEST]:
             random = RandomOrdering()
         else:
             random = NoRandomOrdering()
