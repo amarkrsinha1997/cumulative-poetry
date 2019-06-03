@@ -16,11 +16,19 @@ class Parser:
 
     def add_args(self):
         self.parser.add_argument(constant.REVEAL_FOR_DAY, nargs=1, help="",
-                                 dest=constant.REVEAL_FOR_DAY_DEST, type=int)
+                                dest=constant.REVEAL_FOR_DAY_DEST, type=int)
+
         self.parser.add_argument(constant.RECITE, action="store_true",
-                                 help="", dest=constant.RECITE_DEST)
+                                help="", dest=constant.RECITE_DEST)
+
         self.parser.add_argument("--echo", action="store_true",
-                            help="", dest="shouldEcho")
+                            help="", dest="echo")
+
+        self.parser.add_argument("--random", action="store_true",
+                            help="", dest="random")
+
+        self.parser.add_argument("--seed", nargs=1, help="",
+                            dest="seedValue", type=int)
 
     def checkArgs(self):
         if self._noArgsCheck(self.args):
